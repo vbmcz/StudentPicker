@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="StudentPicker.MainPage"
+             xmlns:models="clr-namespace:StudentPicker.Models">
+    <ContentPage.Resources>
+        <StyleSheet Source="/Resources/Styles/styles.css"/>
+    </ContentPage.Resources>
+
+    <Shell.TitleView>
+        <Label x:Name="Title" Text="Mainpage"/>
+    </Shell.TitleView>
+
+
+    <ScrollView>
+        <VerticalStackLayout
+            Padding="30,0"
+            Spacing="25">
+            <StackLayout>
+                <HorizontalStackLayout
+                    x:Name="FirstSection">
+                    <Button
+                        Text="Odśwież listę klas"
+                        x:Name="RefreshClasses"
+                        Clicked="RefreshClassesClicked"/>
+
+                    <Label
+                        x:Name="LuckyNumberLabel"/>
+                </HorizontalStackLayout>
+
+                <Picker
+                    Title="Lista klas"
+                    x:Name="ClassPicker"
+                    SelectedIndexChanged="ClassPickerChanged"/>
+
+                <Entry
+                    Placeholder="Wpisz imię ucznia"
+                    x:Name="StudentName"
+                    />
+
+                <Entry
+                    Placeholder="Wpisz klasę do której uczęszcza uczeń"
+                    x:Name="ClassId"/>
+            </StackLayout>
+
+            <StackLayout
+                StyleClass="SecondSection">
+                <FlexLayout
+                    x:Name="ButtonsLayout">
+                    <Button
+                        Clicked="AddStudentClicked"
+                        x:Name="AddStudent"
+                        Text="Dodaj ucznia"
+                        />
+
+                    <Button
+                        Clicked="DrawButtonClicked"
+                        x:Name="DrawButton"
+                        Text="Losuj Ucznia"/>
+
+                    <Button
+                        Clicked="ShowStudentsClicked"
+                        x:Name="ShowStudentsButton"
+                        Text="Pokaż uczniów klasy"/>
+                </FlexLayout>
+
+                <ListView
+                    x:Name="StudentList">
+                    <ListView.ItemTemplate>
+                        <DataTemplate
+                            x:DataType="models:Student">
+                            <ViewCell>
+                                <HorizontalStackLayout>
+                                    <Label StyleClass="StudentLabel">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{Binding InClassNumber}"/>
+                                                <Span Text=") "/>
+                                                <Span Text="{Binding Name}"/>
+                                                <Span Text=" obecność: "/>
+                                                <Span Text="{Binding IsPresent}"/>
+                                            </FormattedString>
+                                            
+                                        </Label.FormattedText>
+                                    </Label>
+                                    
+                                </HorizontalStackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+            </StackLayout>
+
+            <Label
+                x:Name="StudentToBeAsked"/>
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

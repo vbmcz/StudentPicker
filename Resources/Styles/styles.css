@@ -1,0 +1,62 @@
+^verticalstacklayout{
+    margin: 0;
+    padding: 0;
+}
+
+#Title{
+    text-align: center;
+    font-size: 35;
+    font-style: bold;
+    background-color: #05445E;
+}
+
+verticalstacklayout{
+    background: grey;
+}
+
+entry{
+    width: 400;
+    text-align: center;
+}
+
+entry, picker{
+    background: #05445E;
+}
+
+picker{
+    text-align: center;
+}
+
+stacklayout > #RefreshClasses{
+    width: 200;
+}
+
+#LuckyNumberLabel{
+    text-align: end;
+    font-size: 40;
+}
+
+#ClassPicker{
+    width: 100;
+}
+
+#ButtonsLayout{
+    width: 550;
+    flex-direction: row;
+    align-items: center;
+    align-content: space-around;
+}
+
+#ButtonsLayout > button{
+    margin-left: 20;
+}
+
+#StudentList{
+    margin-top: 40;
+    width: 400;
+}
+
+.StudentLabel{
+    text-align: center;
+    font-size: 20;
+}
