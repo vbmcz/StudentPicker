@@ -11,7 +11,7 @@ namespace StudentPicker
 			AllStudents.LoadAllStudents();
 			int maxClassNumber = 0;
 			foreach(Student std in AllStudents.Students)
-				if (std.InClassNumber > maxClassNumber )
+				if (std.InClassNumber > maxClassNumber)
 					maxClassNumber = std.InClassNumber;
 
 			luckyNumber = new Random().Next(maxClassNumber) + 1;
@@ -40,23 +40,31 @@ namespace StudentPicker
 			}
 
 			int	maxClassNumber = AllStudents.Students.ElementAt(AllStudents.Students.Count - 1).InClassNumber;
-			if(maxClassNumber <= 1)
-			{
-
-			}
+			/*TODO: DO SMTH WHEN LESS THAN 3 STUDENTS*/
 
 			int rand = 0;
 			Random random = new();
 			rand = random.Next(maxClassNumber) + 1;
 			Student selectedStudent = AllStudents.Students.First(s => s.InClassNumber == rand);
 
-			if (selectedStudent.IsPresent == false || selectedStudent.InClassNumber == luckyNumber || selectedStudent.AskCooldown > 0)
-				DrawButtonClicked(sender, e);
-
+			if (!selectedStudent.IsPresent)
+			{
+				await DisplayAlert("Uwaga", "Wylosowany uczeń nie jest obecny!", "OK");
+				return;
+			}
+			if (selectedStudent.InClassNumber == luckyNumber)
+			{
+				await DisplayAlert("Uwaga", $"Uczeń: {selectedStudent.Name} posiada szczęśliwy numerek!", "OK");
+				return;
+			}
+			if (selectedStudent.AskCooldown > 0)
+			{
+				await DisplayAlert("Uwaga", $"Wylosowano: {selectedStudent.Name}, osoba jest poza pulą osób do losowania, pozostała liczba osób: {selectedStudent.AskCooldown}", "OK");
+				return;
+			}
 
 			StudentToBeAsked.Text = $"Uczeń do pytania: {selectedStudent.Name}";
 
-			/*UPDATES THE COOLDOWN*/
 			foreach (Student student in AllStudents.Students)
 			{
 				if(student.Id == selectedStudent.Id)
@@ -105,13 +113,19 @@ namespace StudentPicker
 				classId = ClassId.Text.ToString();
 			int lastId = 0, inClassNumber = 0;
 			AllStudents.LoadAllStudents();
-			try
-			{
-				lastId = AllStudents.Students.ElementAt(AllStudents.Students.Count - 1).Id + 1;
-			}
-			catch (Exception)
+			if(AllStudents.Students.Count == 0)
 			{
 				lastId = 1;
+			}
+			else
+			{
+				int max = 0;
+				foreach (Student sdt in AllStudents.Students)
+				{
+					if (sdt.Id > max)
+						max = sdt.Id;
+					lastId = max + 1;
+				}	
 			}
 
 			try
@@ -139,6 +153,14 @@ namespace StudentPicker
 		{
 			AllClasses.LoadClasses();
 			ClassPicker.ItemsSource = AllClasses.Classes;
+		}
+
+		private void OnItemSelected(object sender, SelectedItemChangedEventArgs e)
+		{
+			Student student = e.SelectedItem as Student;
+
+			/*TODO: make editing a reality :)*/
+
 		}
 	}
 }

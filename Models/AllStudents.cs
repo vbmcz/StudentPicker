@@ -87,7 +87,7 @@ namespace StudentPicker.Models
 				if (dataTemp[2].ToLower().Equals(classId.ToLower()))
 				{
 					data[i] = "";
-					stdTemp.Add(ConvertToStudent(dataTemp));
+					stdTemp.Add(ConvertToStudent(string.Join("", dataTemp)));
 				}
 			}
 
@@ -132,8 +132,9 @@ namespace StudentPicker.Models
 			return data;
 		}
 
-		public static Student ConvertToStudent(string[] args)
+		public static Student ConvertToStudent(string arg)
 		{
+			string[] args = arg.Split("");
 			bool temp = int.TryParse(args[0], out int id);
 			if(temp)
 				return new Student(id, args[1], args[2], bool.Parse(args[3].ToLower()), int.Parse(args[4]), int.Parse(args[5]));

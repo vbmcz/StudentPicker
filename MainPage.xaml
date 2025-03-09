@@ -65,6 +65,7 @@
                 </FlexLayout>
 
                 <ListView
+                    ItemSelected="OnItemSelected"
                     x:Name="StudentList">
                     <ListView.ItemTemplate>
                         <DataTemplate
