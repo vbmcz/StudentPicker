@@ -10,6 +10,8 @@ namespace StudentPicker.Models
 {
 	public class AllStudents
 	{
+
+		public static Student editStudent;
 		public enum FileDataTypes : int
 		{
 			StudentId = 0,
@@ -87,7 +89,7 @@ namespace StudentPicker.Models
 				if (dataTemp[2].ToLower().Equals(classId.ToLower()))
 				{
 					data[i] = "";
-					stdTemp.Add(ConvertToStudent(string.Join("", dataTemp)));
+					stdTemp.Add(ConvertToStudent(string.Join(";", dataTemp)));
 				}
 			}
 
@@ -95,10 +97,11 @@ namespace StudentPicker.Models
 			{
 				foreach (Student student2 in students)
 				{
+					if (student == null)
+						break;
 					if (student2.Id == student.Id)
 					{
 						student.AskCooldown = student2.AskCooldown;
-						student.IsPresent = student2.IsPresent;
 					}
 				}
 			}

@@ -1,4 +1,6 @@
 ﻿using StudentPicker.Models;
+using CommunityToolkit.Maui.Views;
+using StudentPicker.Views;
 
 namespace StudentPicker
 {
@@ -10,7 +12,7 @@ namespace StudentPicker
 			InitializeComponent();
 			AllStudents.LoadAllStudents();
 			int maxClassNumber = 0;
-			foreach(Student std in AllStudents.Students)
+			foreach (Student std in AllStudents.Students)
 				if (std.InClassNumber > maxClassNumber)
 					maxClassNumber = std.InClassNumber;
 
@@ -20,6 +22,8 @@ namespace StudentPicker
 			AllClasses.LoadClasses();
 			ClassPicker.ItemsSource = AllClasses.Classes;
 		}
+
+
 
 		private async void DrawButtonClicked(object sender, EventArgs e)
 		{
@@ -157,10 +161,11 @@ namespace StudentPicker
 
 		private void OnItemSelected(object sender, SelectedItemChangedEventArgs e)
 		{
-			Student student = e.SelectedItem as Student;
+			AllStudents.editStudent = e.SelectedItem as Student;
 
 			/*TODO: make editing a reality :)*/
 
+			this.ShowPopup(new EditPopup());
 		}
 	}
 }

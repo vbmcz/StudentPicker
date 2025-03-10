@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<mct:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="StudentPicker.Views.EditPopup"
+             xmlns:mct="clr-namespace:CommunityToolkit.Maui.Views;assembly=CommunityToolkit.Maui"
+             xmlns:models ="clr-namespace:StudentPicker.Models">
+
+    <mct:Popup.Resources>
+        <x:StyleSheetExtension Source="../Resources/Styles/popupStyles.css"/>
+    </mct:Popup.Resources>
+
+    <VerticalStackLayout>
+        <StackLayout>
+
+            <Entry
+                x:Name="NameEntry"
+                />
+
+            <StackLayout>
+
+                <Label
+                    Text="Obecność: "/>
+
+                <CheckBox
+                    x:Name="IsPresentChckbx"/>
+
+            </StackLayout>
+
+            <Entry
+                x:Name="EditClassEntry" 
+                />
+
+            <Button
+                Text="Edytuj ucznia"
+                Clicked="EditStudent"/>
+
+
+        </StackLayout>
+
+    </VerticalStackLayout>
+</mct:Popup>
