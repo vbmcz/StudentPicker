@@ -18,10 +18,10 @@ namespace StudentPicker
 
 			luckyNumber = new Random().Next(maxClassNumber) + 1;
 
-			LuckyNumberLabel.Text = $"Szczęśliwy numerek: {luckyNumber}";
+			LuckyNumberLabel.Text = $"Lucky number: {luckyNumber}";
 			AllClasses.LoadClasses();
 			ClassPicker.ItemsSource = AllClasses.Classes;
-		}
+        }
 
 
 
@@ -30,7 +30,7 @@ namespace StudentPicker
 			StudentList.ItemsSource = null;
 			if (ClassPicker.SelectedItem == null)
 			{
-				await DisplayAlert("Uwaga", "Wybierz klasę!", "OK");
+				await DisplayAlert("Warning", "Pick class to draw from!", "OK");
 				return;
 			}
 
@@ -39,35 +39,48 @@ namespace StudentPicker
 
 			if(AllStudents.Students.Count <= 0)
 			{
-				await DisplayAlert("Uwaga", "Klasa nie posiada uczniów!", "OK");
+				await DisplayAlert("Warning", "No students found in this class!", "OK");
 				return;
 			}
 
-			int	maxClassNumber = AllStudents.Students.ElementAt(AllStudents.Students.Count - 1).InClassNumber;
-			/*TODO: DO SMTH WHEN LESS THAN 3 STUDENTS*/
+			int maxClassNumber = AllStudents.Students.ElementAt(AllStudents.Students.Count - 1).InClassNumber,
+				availableStudents = 0;
+			/*TODO: DO SMTH WHEN LESS THAN 4 STUDENTS*/
+
+			foreach(Student std in AllStudents.Students)
+			{
+				if (std.AskCooldown == 0 && std.IsPresent && std.InClassNumber != luckyNumber)
+					availableStudents++;
+			}
+
+			if(availableStudents == 0)
+			{
+				await DisplayAlert("Warning", "No students to ask", "OK");
+				return;
+			}
+
 
 			int rand = 0;
-			Random random = new();
-			rand = random.Next(maxClassNumber) + 1;
+			rand = new Random().Next(maxClassNumber) + 1;
 			Student selectedStudent = AllStudents.Students.First(s => s.InClassNumber == rand);
 
 			if (!selectedStudent.IsPresent)
 			{
-				await DisplayAlert("Uwaga", "Wylosowany uczeń nie jest obecny!", "OK");
+				await DisplayAlert("Warning", $"Drawn student: {selectedStudent.Name} isn't present!", "OK");
 				return;
 			}
 			if (selectedStudent.InClassNumber == luckyNumber)
 			{
-				await DisplayAlert("Uwaga", $"Uczeń: {selectedStudent.Name} posiada szczęśliwy numerek!", "OK");
+				await DisplayAlert("Warning", $"Drawn student: {selectedStudent.Name} has the lucky number!", "OK");
 				return;
 			}
 			if (selectedStudent.AskCooldown > 0)
 			{
-				await DisplayAlert("Uwaga", $"Wylosowano: {selectedStudent.Name}, osoba jest poza pulą osób do losowania, pozostała liczba osób: {selectedStudent.AskCooldown}", "OK");
+				await DisplayAlert("Warning", $"Drawn student: {selectedStudent.Name}, is out of the ask pool, remaining students: {selectedStudent.AskCooldown}", "OK");
 				return;
 			}
 
-			StudentToBeAsked.Text = $"Uczeń do pytania: {selectedStudent.Name}";
+			StudentToBeAsked.Text = $"Drawn student: {selectedStudent.Name}";
 
 			foreach (Student student in AllStudents.Students)
 			{
@@ -100,9 +113,11 @@ namespace StudentPicker
 		{
 			if (ClassPicker.SelectedItem == null)
 			{
-				await DisplayAlert("Uwaga", "Wybierz klasę!", "OK");
+				await DisplayAlert("Warning", "Choose class!", "OK");
 				return;
 			}
+			AllStudents.Students.Clear();
+			AllStudents.LoadStudentsByClass(ClassPicker.SelectedItem.ToString());
 			StudentList.ItemsSource = AllStudents.Students;
 		}
 
@@ -110,7 +125,7 @@ namespace StudentPicker
 		{
 			if (StudentName.Text == null || ClassId.Text == null)
 			{
-				await DisplayAlert("Uwaga", "Podaj poprawne dane!", "OK");
+				await DisplayAlert("Warning", "Enter valid data!", "OK");
 				return;
 			}
 			string studentName = StudentName.Text.ToString(),
@@ -162,8 +177,6 @@ namespace StudentPicker
 		private void OnItemSelected(object sender, SelectedItemChangedEventArgs e)
 		{
 			AllStudents.editStudent = e.SelectedItem as Student;
-
-			/*TODO: make editing a reality :)*/
 
 			this.ShowPopup(new EditPopup());
 		}

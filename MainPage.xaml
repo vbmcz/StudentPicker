@@ -4,12 +4,13 @@
              x:Class="StudentPicker.MainPage"
              xmlns:models="clr-namespace:StudentPicker.Models"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit">
+
     <ContentPage.Resources>
-        <StyleSheet Source="/Resources/Styles/styles.css"/>
+        <x:StyleSheetExtension Source="./Resources/Styles/styles.css"/>
     </ContentPage.Resources>
 
     <Shell.TitleView>
-        <Label x:Name="Title" Text="Mainpage"/>
+        <Label x:Name="Title" Text="Student Picker"/>
     </Shell.TitleView>
 
 
@@ -21,7 +22,7 @@
                 <HorizontalStackLayout
                     x:Name="FirstSection">
                     <Button
-                        Text="Odśwież listę klas"
+                        Text="Refresh classes"
                         x:Name="RefreshClasses"
                         Clicked="RefreshClassesClicked"/>
 
@@ -30,17 +31,17 @@
                 </HorizontalStackLayout>
 
                 <Picker
-                    Title="Lista klas"
+                    Title="Class list"
                     x:Name="ClassPicker"
                     SelectedIndexChanged="ClassPickerChanged"/>
 
                 <Entry
-                    Placeholder="Wpisz imię ucznia"
+                    Placeholder="Enter student name"
                     x:Name="StudentName"
                     />
 
                 <Entry
-                    Placeholder="Wpisz klasę do której uczęszcza uczeń"
+                    Placeholder="Enter student's class"
                     x:Name="ClassId"/>
             </StackLayout>
 
@@ -51,19 +52,22 @@
                     <Button
                         Clicked="AddStudentClicked"
                         x:Name="AddStudent"
-                        Text="Dodaj ucznia"
+                        Text="Add Student"
                         />
 
                     <Button
                         Clicked="DrawButtonClicked"
                         x:Name="DrawButton"
-                        Text="Losuj Ucznia"/>
+                        Text="Draw Student"/>
 
                     <Button
                         Clicked="ShowStudentsClicked"
                         x:Name="ShowStudentsButton"
-                        Text="Pokaż uczniów klasy"/>
+                        Text="Show class list"/>
                 </FlexLayout>
+
+                <Label
+                    x:Name="StudentToBeAsked"/>
 
                 <ListView
                     ItemSelected="OnItemSelected"
@@ -79,7 +83,7 @@
                                                 <Span Text="{Binding InClassNumber}"/>
                                                 <Span Text=") "/>
                                                 <Span Text="{Binding Name}"/>
-                                                <Span Text=" obecność: "/>
+                                                <Span Text=" present: "/>
                                                 <Span Text="{Binding IsPresent}"/>
                                             </FormattedString>
                                             
@@ -94,9 +98,6 @@
 
             </StackLayout>
 
-            <Label
-                x:Name="StudentToBeAsked"/>
         </VerticalStackLayout>
     </ScrollView>
-
 </ContentPage>

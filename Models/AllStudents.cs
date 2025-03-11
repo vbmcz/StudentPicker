@@ -117,7 +117,7 @@ namespace StudentPicker.Models
 
 			foreach (Student student in stdTemp)
 			{
-				File.AppendAllText(dataFilePath, student.ToString());
+                File.AppendAllText(dataFilePath, student.ToString());
 			}
 		}
 
@@ -137,11 +137,13 @@ namespace StudentPicker.Models
 
 		public static Student ConvertToStudent(string arg)
 		{
-			string[] args = arg.Split("");
+			string[] args = arg.Split(";");
 			bool temp = int.TryParse(args[0], out int id);
 			if(temp)
 				return new Student(id, args[1], args[2], bool.Parse(args[3].ToLower()), int.Parse(args[4]), int.Parse(args[5]));
 			return null;
 		}
+
+
 	}
 }

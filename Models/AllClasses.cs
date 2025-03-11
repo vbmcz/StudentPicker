@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,7 +9,7 @@ namespace StudentPicker.Models
 {
 	public class AllClasses
 	{
-		public static List<string> Classes = [];
+		public static ObservableCollection<string> Classes = [];
 
 		public static void LoadClasses()
 		{

@@ -3,13 +3,6 @@
     padding: 0;
 }
 
-#Title{
-    text-align: center;
-    font-size: 35;
-    font-style: bold;
-    background-color: #05445E;
-}
-
 verticalstacklayout{
     background: grey;
 }
@@ -29,6 +22,17 @@ picker{
 
 stacklayout > #RefreshClasses{
     width: 200;
+}
+
+button{
+    background: #4592b3;
+}
+
+#Title{
+    text-align: center;
+    font-size: 35;
+    font-style: bold;
+    background-color: #05445E;
 }
 
 #LuckyNumberLabel{
@@ -52,8 +56,18 @@ stacklayout > #RefreshClasses{
 }
 
 #StudentList{
-    margin-top: 40;
+    margin-top: 5;
     width: 400;
+}
+
+#StudentToBeAsked{
+    font-size:35;
+    margin-top: 10;
+    text-align:center;
+}
+
+#FirstSection{
+    margin-top: 10;
 }
 
 .StudentLabel{

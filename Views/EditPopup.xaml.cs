@@ -23,6 +23,7 @@ public partial class EditPopup : Popup
 		AllStudents.editStudent.IsPresent = editIsPresent;
 
 		AllStudents.LoadAllStudents();
+		File.Delete(AllStudents.dataFilePath);
 		foreach(Student student in AllStudents.Students)
 		{
 			if(student.Id == AllStudents.editStudent.Id)
@@ -30,10 +31,12 @@ public partial class EditPopup : Popup
 				student.Name = editName;
 				student.ClassId = editClass;
 				student.IsPresent = editIsPresent;
-				break;
 			}
+			File.AppendAllText(AllStudents.dataFilePath, student.ToString());
 		}
+		AllStudents.Students.Clear();
 		AllStudents.LoadStudentsByClass(editClass);
+
 
 		Close();
 	}
