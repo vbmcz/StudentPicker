@@ -1,6 +1,7 @@
 ﻿using StudentPicker.Models;
 using CommunityToolkit.Maui.Views;
 using StudentPicker.Views;
+using Microsoft.Graphics.Canvas.Svg;
 
 namespace StudentPicker
 {
@@ -43,20 +44,14 @@ namespace StudentPicker
 				return;
 			}
 
-			int maxClassNumber = AllStudents.Students.ElementAt(AllStudents.Students.Count - 1).InClassNumber,
-				availableStudents = 0;
+			int maxClassNumber = AllStudents.Students.ElementAt(AllStudents.Students.Count - 1).InClassNumber;
+			List<Student> students = [];
 			/*TODO: DO SMTH WHEN LESS THAN 4 STUDENTS*/
-
+			/*ZOSTAWIAM TO ALANOWI 13.03.2025 NA LEKCJI U GEJLUSA (DASZ RADĘ WIERZE W CB :)))*/
 			foreach(Student std in AllStudents.Students)
 			{
 				if (std.AskCooldown == 0 && std.IsPresent && std.InClassNumber != luckyNumber)
-					availableStudents++;
-			}
-
-			if(availableStudents == 0)
-			{
-				await DisplayAlert("Warning", "No students to ask", "OK");
-				return;
+					students.Add(std);
 			}
 
 
