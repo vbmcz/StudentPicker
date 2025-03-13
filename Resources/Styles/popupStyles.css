@@ -1,0 +1,10 @@
+^flexlayout{
+    width: 150;
+}
+flexlayout > label{
+    text-align: center;
+    flex-direction: row;
+}
+stacklayout{
+    background: #4592b3;
+}

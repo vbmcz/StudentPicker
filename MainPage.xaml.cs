@@ -45,7 +45,6 @@ namespace StudentPicker
 
 			int maxClassNumber = AllStudents.Students.ElementAt(AllStudents.Students.Count - 1).InClassNumber;
 			List<Student> students = [];
-			/*TODO: DO SMTH WHEN LESS THAN 4 STUDENTS*/
 			foreach(Student std in AllStudents.Students)
 			{
 				if (std.AskCooldown == 0 && std.IsPresent && std.InClassNumber != luckyNumber)
